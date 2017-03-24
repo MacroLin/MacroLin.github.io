@@ -11,14 +11,14 @@ var $body = document.body;
 
 
 var Main = React.createClass({
-	componentDidMount:function(){
-		
-		var $Hi = this.refs.Hi;
-		var $main = this.refs.main;
-		$main.style.height = htmlH / rem + 'rem';
-		this.props.handleAnimation($Hi);
-		this.props.handleResize($main);
-	},
+    componentDidMount: function() {
+
+        var $Hi = this.refs.Hi;
+        var $main = this.refs.main;
+        $main.style.height = htmlH / rem + 'rem';
+        this.props.handleAnimation($Hi);
+        this.props.handleResize($main);
+    },
     render: function() {
         var data = this.props.data;
         var $list = data.map(function(data) {
@@ -37,23 +37,121 @@ var Main = React.createClass({
     }
 });
 var LoginBar = React.createClass({
-	componentDidMount:function(){
-		var $loginBtn = this.refs.loginBtn;
-		this.props.handleAnimation($loginBtn);
-	},
+    getInitialState: function() {
+        return {
+            show: false,
+            name: '',
+            pwd: '',
+            rName:'',
+            rPwd:'',
+            rtPwd:''
+        }
+    },
+    componentDidMount: function(ev) {
+        var $loginBtn = this.refs.loginBtn;
+        this.props.handleAnimation($loginBtn);
+    },
+    handleChange: function(ev) {},
+    handleShow: function(ev) {
+        this.setState({
+            show: !this.state.show,
+            name: '',
+            pwd: '',
+            rName:'',
+            rPwd:'',
+            rtPwd:''
+        });
+
+    },
+    handleChange: function(ev) {
+        switch (ev.target.name) {
+        case "username":
+            this.setState({
+                name: ev.target.value
+            });
+            break;
+            case "pwd":
+            this.setState({
+                pwd: ev.target.value
+            });
+            break;
+            case "rUsername":
+            	this.setState({
+                rName: ev.target.value
+            });
+            break;
+            case "rPwd":
+            	this.setState({
+                rPwd: ev.target.value
+            });
+            break;
+            case "rtPwd":
+            	this.setState({
+                rtPwd: ev.target.value
+            });
+            break;
+            default:
+            console.log('没有此元素的匹配项')
+        }
+
+    },
+    handleTurn: function(ev) {
+    	 this.setState({
+            name: '',
+            pwd: '',
+            rName:'',
+            rPwd:'',
+            rtPwd:''
+        });
+        var $loginWrap = this.refs.loginWrap;
+        if (ev.target.className.indexOf('turnL') !== -1) {
+            $loginWrap.className = 'login-wrap register-active';
+        } else if (ev.target.className.indexOf('turnR') !== -1) {
+            $loginWrap.className = 'login-wrap login-active';
+        }
+       
+
+    },
     render: function() {
         return (
             <div className="loginbar">
-				<a  className="login-btn"  ref="loginBtn" href="">Login / Register</a>
+				<a onClick={this.handleShow} className="login-btn"  ref="loginBtn" href="javascript:;">Login / Register</a>
+				<a onClick={this.handleShow} className={!this.state.show ? "close-btn" : "close-btn active"} href="javascript:;"></a>
+				<div  ref="loginWrap" className = {this.state.show ? "login-wrap login-active" : "login-wrap close"}>
+				
+					<div  className="register-form">
+						
+						<form>
+						<h1 className="title">Register</h1>
+							<div ><input onChange={this.handleChange} maxLength = "9" value={this.state.rName}  type="text" name="rUsername" placeholder="Username" /></div>
+							<div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rPwd} type="password" name="rPwd" placeholder="Password" /></div>
+							<div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rtPwd} type="password" name="rtPwd" placeholder="Again" /></div>
+							<a  className="submit" href="">Rigister</a>
+						</form>
+						<a onClick={this.handleTurn} className="turnR turn" href="javascript:;"></a>
+					</div>
+					<div className ="login-form">
+						<a onClick={this.handleTurn} className="turnL turn" href="javascript:;"></a>
+						
+						<form>
+						<h1  className="title">Login</h1>
+							<div ><input onChange={this.handleChange} maxLength = "9" value={this.state.name} type="text" name="username" placeholder="Username" /></div>
+							<div ><input onChange={this.handleChange} maxLength = "9" value={this.state.pwd} type="password" name="pwd" placeholder="Password" /></div>
+							<a  className="submit" href="">Sign In</a>
+						</form>
+
+					</div>
+					
+				</div>
 			</div>
         )
     }
 });
 var HeadNav = React.createClass({
-	componentDidMount:function(){
-		var $headNav = this.refs.headNav;
-		this.props.handleAnimation($headNav);
-	},
+    componentDidMount: function() {
+        var $headNav = this.refs.headNav;
+        this.props.handleAnimation($headNav);
+    },
     render: function() {
         var data = this.props.data;
         var $haedList = data.map(function(data) {
@@ -106,11 +204,37 @@ var Header = React.createClass({
 });
 
 var ContentList = React.createClass({
+    componentDidMount: function() {},
+    hanldeMouseOver: function(ev) {
+        var $listCld = ev.target;
+        $listCld.style.transition = '.5s';
+        $listCld.style.transform = "scale(1.15)";
+    },
+    handleMouseMove: function(ev) {
+        var $listCld = ev.target;
+        var cldOffsetLeft = $listCld.offsetLeft;
+        var cldOffsetTop = $listCld.offsetTop;
+        var cldOffsetWidth = $listCld.offsetWidth;
+        var cldOffsetHeight = $listCld.offsetHeight;
+        var offsetLeft = $listCld.parentNode.offsetLeft;
+        var offsetTop = $listCld.parentNode.offsetTop;
+        var L = ev.clientX - (cldOffsetLeft + offsetLeft + cldOffsetWidth / 2);
+        var T = ev.pageY - (htmlH + cldOffsetTop + offsetTop + cldOffsetWidth / 2);
+        $listCld.style.transform = "scale(1.15) rotateY(" + L * .05 + "deg) translateZ(50px) rotateX(" + -T * 0.1 + "deg) translateY(" + T * 0.05 + "px) ";
+        $listCld.style.transition = '.05s';
+
+    },
+    handleMouseOut: function(ev) {
+        ev.target.style.transition = '.5s';
+        ev.target.style.transform = 'none';
+
+    },
     render: function() {
+        var that = this;
         var data = this.props.data;
         var $contentList = data.map(function(data) {
             return (
-                <li key = {data.name}><a href={data.url}>{data.name}</a></li>
+                <li key = {data.name}><a ref="a" onMouseOver = {that.hanldeMouseOver} onMouseOut = {that.handleMouseOut} onMouseMove = {that.handleMouseMove}   href={data.url}>{data.name}</a></li>
             )
         });
         return (
@@ -141,6 +265,10 @@ var CategoryBar = React.createClass({
     }
 });
 var Content = React.createClass({
+    componentDidMount: function() {
+        var $content = this.refs.content;
+        this.props.handleAnimation($content);
+    },
     getInitialState: function() {
         return {
             contentData: [{
@@ -168,71 +296,95 @@ var Content = React.createClass({
     },
     render: function() {
         return (
-            <div className="content">
-				<ContentList data = {this.state.contentData} />
+            <div ref="content" className="content">
+				<ContentList  data = {this.state.contentData} />
 				<CategoryBar />
 			</div>
         )
     }
 });
 
+var Footer = React.createClass({
+    componentDidMount: function() {
+        var $footer = this.refs.footer;
+        this.props.handleAnimation($footer);
+    },
+    render: function() {
+        return (
+            <div ref="footer" className='footer'>
+				<div className="contact">QQ:107483419<br/>
+				微信:1074863419</div>
+			</div>
+        )
+    }
+});
 var Wrap = React.createClass({
-	componentDidMount:function(){
-		var $wrap = this.refs.wrap;
-		this.handleAnimation($wrap);
-	},
-    handleAnimation: function( obj) {
-    	var that = this;
-        window.addEventListener('scroll', function() {
-        	var scrollT = $body.scrollTop;
-        	switch(obj.className){
-				case "wrap":
-					if(scrollT <= 30){
-						scrollT = 30
-					}
-					obj.style.background = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
-				break;
-				case "login-btn":
-					obj.style.color = "rgba(" + (255-scrollT) + "," + (255-scrollT) + "," + (255-scrollT) + ",1)";
-				break;
-				case "Hi":
-					obj.style.color = "rgba(" + (255-scrollT) + "," + (255-scrollT) + "," + (255-scrollT) + ",1)";
-				break; 
-				case "head-nav":
-					if(scrollT > that.refs.wrap.scrollHeight*.25){
-						obj.style.opacity = 1;
-					}else{
-						obj.style.opacity = 0;
-					}
-				break;
-				default:
-					console.log("没有此元素的匹配项")
-        	}
-            
-            
+    componentDidMount: function() {
+        var $wrap = this.refs.wrap;
+        this.handleAnimation($wrap);
+    },
+    handleAnimation: function(obj) {
+        var that = this;
+        window.addEventListener('scroll', animation, false);
+        function animation() {
+
+            var scrollT = $body.scrollTop;
+            switch (obj.className) {
+            case "wrap":
+                if (scrollT <= 30) {
+                    scrollT = 30
+                }
+                obj.style.background = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
+                break;
+            case "content":
+                obj.style.background = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
+                break;
+            case "login-btn":
+                obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
+                break;
+            case "Hi":
+                obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
+                break;
+            case "head-nav":
+                if (scrollT > that.refs.wrap.scrollHeight * .25) {
+                    obj.style.opacity = 1;
+                } else {
+                    obj.style.opacity = 0;
+                }
+                break;
+            case "footer":
+
+                break;
+            default:
+                console.log("没有此元素的匹配项")
+            }
+
+
+
+        }
+    },
+    handleResize: function(obj) {
+        var that = this;
+        window.addEventListener('resize', function(ev) {
+            htmlH = $html.clientHeight;
+            htmlW = $html.clientWidth;
+            rem = htmlW / 15;
+            $html.style.fontSize = rem + 'px';
+            switch (obj.className) {
+            case "main":
+                obj.style.height = htmlH / rem + 'rem';
+                break;
+            default:
+                console.log('没有此元素的匹配项')
+            }
         }, false);
     },
-    handleResize:function(obj) {
-    	var that = this;
-		window.addEventListener('resize',function(ev){
-			htmlH = $html.clientHeight;
-   			htmlW = $html.clientWidth;
-    		rem = htmlW / 15;
-    		$html.style.fontSize = rem + 'px';
-    		switch(obj.className){
-    			case "main":
-    				obj.style.height = htmlH / rem + 'rem';
-    			break;
-    			default:
-    			console.log('没有此元素的匹配项')
-    		}
-		},false);
-	},
     render: function() {
         return (
             <div ref="wrap"  className="wrap">
 				<Header handleResize={this.handleResize} handleAnimation = {this.handleAnimation}/>
-				<Content />
+				<Content  handleAnimation = {this.handleAnimation} />
+				<Footer handleAnimation = {this.handleAnimation} />
 			</div>
         )
     }

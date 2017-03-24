@@ -26,10 +26,10 @@ var config = {
             }],
         }, {
             test: /\.css$/,
-            use: extractCSS.extract(['css-loader', 'postcss-loader'])
+            use: extractCSS.extract(['css-loader', 'postcss-loader','autoprefixer-loader'])
         }, {
             test: /\.less$/,
-            use: extractLESS.extract(['css-loader', 'less-loader'])
+            use: extractLESS.extract(['css-loader', 'less-loader','autoprefixer-loader'])
         }, {
             test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
             use: [{

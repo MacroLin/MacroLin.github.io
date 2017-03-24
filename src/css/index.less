@@ -30,13 +30,15 @@
     position: relative;
     left: 0;
     top: 0;
-    background: rgba(30,30,30,1);
+    background: rgba(30, 30, 30, 1);
 }
 
 .top {
     width: 100%;
     height: 100%;
+    background: inherit;
     position: relative;
+    z-index: 999;
     .main {
         box-sizing: border-box;
         width: 100%;
@@ -101,16 +103,153 @@
             position: relative;
             left: 0;
             top: 0;
-            a {
+            .login-btn {
                 position: absolute;
                 font-family: 'Grotesk-Regular';
                 top: 45/@r;
                 left: 49/@r;
                 color: rgba(255, 255, 255, 1);
                 font-size: 16/@r;
+                z-index: 999;
             }
-            a:hover {
+            .login-btn:hover {
                 border-bottom: 1px solid #ccc;
+            }
+            .close-btn {
+                transition: transform .5s;
+                transform: translateX(-100/@r);
+                background:url(../images/close.png) no-repeat;
+                background-size:cover;
+                opacity: 0;
+                z-index: -1;
+                position: absolute;
+                top: 45/@r;
+                right: 49/@r;
+                width: 45/@r;
+                height: 45/@r;
+            }
+            
+            .close-btn:hover {
+                background:url(../images/close_hover.png) no-repeat;
+                background-size:cover;
+            }
+            .active {
+                opacity: 1;
+                z-index: 99999;
+                transform: translateX(0);
+            }
+            .login-wrap {
+                transition: all .5s;
+                display: table;
+                z-index: 9999;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 200%;
+                height: 100%;
+                background: rgba(30, 30, 30, .8);
+                .login-form,
+                .register-form {
+                    width: 50%;
+                    height: 100%;
+                    text-align: center;
+                    display: table-cell;
+                    positoin: relative;
+                    form {
+                        width: 30%;
+                        margin: 5% auto;
+                        padding: 40/@r;
+                        .title {
+                            font-size: 50/@r;
+                            color: white;
+                            margin-bottom:100/@r;
+                        }
+                        div {
+                            margin: 10/@r auto;
+                            position: relative;
+                            border: 1px solid silver;
+                            width: 70%;
+                            input {
+                                display: block;
+                                color: white;
+                                border: 0;
+                                outline: 0;
+                                padding: 10/@r 20/@r;
+                                position: relative;
+                                width: 100%;
+                                font-size: 18/@r;
+                                box-sizing: border-box;
+                                font-family: 'Grotesk-Regular';
+                            }
+                        }
+                        .user {}
+                        .pwd {}
+                        .submit {
+                            transition: all .5s;
+                            display: inline-block;
+                            text-align: center;
+                            margin: auto;
+                            position: relative;
+                            font-size: 24/@r;
+                            color: silver;
+                            padding: 10/@r;
+                        }
+                        .submit:hover {
+                            color: white;
+                        }
+                    }
+                }
+                .turn {
+                    position: absolute;
+                    width: 50/@r;
+                    height: 100/@r;
+                    top: 35%;
+                }
+                .turn:before {
+                    content: '';
+                    position: absolute;
+                    width: 50/@r;
+                    height: 5/@r;
+                    transform: rotate(-60deg);
+                    background: silver;
+                    left: 0;
+                    top: 27%;
+                }
+                .turn:after {
+                    content: '';
+                    position: absolute;
+                    width: 50/@r;
+                    height: 5/@r;
+                    transform: rotate(60deg);
+                    background: silver;
+                    left: 0;
+                    bottom: 27%;
+                }
+                .turnL {
+                    left: 5%;
+                }
+                .turnR {
+                    right: 5%;
+                }
+                .turnR:before {
+                    transform: rotate(-120deg);
+                }
+                .turnR:after {
+                    transform: rotate(120deg);
+                }
+            }
+            .login-active {
+                opacity: 1;
+                transform: translateX(-50%);
+            }
+            .close {
+                opacity: 0;
+                z-index: 1;
+                transform: translateX(-100%);
+            }
+            .regiter-active {
+                opacity: 1;
+                transform: translateX(0%);
             }
         }
         .head-nav {
@@ -135,9 +274,9 @@
                     display: table-cell;
                     a {
                         font-size: 16/@r;
-                        position:absolute;
-                        top:45/@r;
-                        right:0;
+                        position: absolute;
+                        top: 45/@r;
+                        right: 0;
                         color: rgb(0, 0, 0);
                         font-family: 'Grotesk-Regular';
                     }
@@ -153,6 +292,10 @@
 .content {
     display: table;
     width: 100%;
+    position: relative;
+    z-index: 888;
+    margin-bottom: 300/@r;
+    background: rgba(255, 255, 255, 1);
     .content-list {
         vertical-align: top;
         display: table-cell;
@@ -164,11 +307,13 @@
             box-sizing: border-box;
             li {
                 float: left;
-                width: 300/@r;
-                height: 300/@r;
+                width: 290/@r;
+                height: 290/@r;
                 padding: 22/@r;
                 box-sizing: border-box;
+                perspective: 1500/@r;
                 a {
+                    transition: .5s;
                     display: inline-block;
                     width: 100%;
                     height: 100%;
@@ -209,5 +354,20 @@
                 }
             }
         }
+    }
+}
+
+.footer {
+    position: fixed;
+    z-index: 666;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300/@r;
+    background: rgba(30, 30, 30, 1);
+    .contact {
+        padding-top: 40/@r;
+        text-align: center;
+        font-size: 30/@r;
     }
 }
