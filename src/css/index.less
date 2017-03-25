@@ -104,6 +104,7 @@
             left: 0;
             top: 0;
             .login-btn {
+
                 position: absolute;
                 font-family: 'Grotesk-Regular';
                 top: 45/@r;
@@ -112,7 +113,17 @@
                 font-size: 16/@r;
                 z-index: 999;
             }
-            .login-btn:hover {
+            .user-btn{
+                display:none;
+                 position: absolute;
+                font-family: 'Grotesk-Regular';
+                top: 45/@r;
+                left: 49/@r;
+                color: rgba(255, 255, 255, 1);
+                font-size: 16/@r;
+                z-index: 999;
+            }
+            .login-btn:hover .user-btn:hover {
                 border-bottom: 1px solid #ccc;
             }
             .close-btn {
@@ -313,7 +324,6 @@
                 box-sizing: border-box;
                 perspective: 1500/@r;
                 a {
-                    transition: .5s;
                     display: inline-block;
                     width: 100%;
                     height: 100%;

@@ -1,1 +1,541 @@
-webpackJsonp([0],{180:function(e,t,a){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function l(e,t,a){return t in e?Object.defineProperty(e,t,{value:a,enumerable:!0,configurable:!0,writable:!0}):e[t]=a,e}var r,s=a(32),i=n(s),o=a(31),c=n(o);a(82),a(81);var d=document.documentElement,u=d.clientWidth,m=d.clientHeight,f=u/15;d.style.fontSize=f+"px";var h=document.body,p=i.default.createClass({displayName:"Main",componentDidMount:function(){var e=this.refs.Hi,t=this.refs.main;t.style.height=m/f+"rem",this.props.handleAnimation(e),this.props.handleResize(t)},render:function(){var e=this.props.data,t=e.map(function(e){return i.default.createElement("a",{key:e.name,href:e.url},e.content)});return i.default.createElement("div",{ref:"main",className:"main"},i.default.createElement("h1",{className:"Hi",ref:"Hi"},"Hi."),t)}}),g=i.default.createClass((r={displayName:"LoginBar",getInitialState:function(){return{show:!1,name:"",pwd:"",rName:"",rPwd:"",rtPwd:""}},componentDidMount:function(e){var t=this.refs.loginBtn;this.props.handleAnimation(t)},handleChange:function(e){},handleShow:function(e){this.setState({show:!this.state.show,name:"",pwd:"",rName:"",rPwd:"",rtPwd:""})}},l(r,"handleChange",function(e){switch(e.target.name){case"username":this.setState({name:e.target.value});break;case"pwd":this.setState({pwd:e.target.value});break;case"rUsername":this.setState({rName:e.target.value});break;case"rPwd":this.setState({rPwd:e.target.value});break;case"rtPwd":this.setState({rtPwd:e.target.value});break;default:console.log("没有此元素的匹配项")}}),l(r,"handleTurn",function(e){this.setState({name:"",pwd:"",rName:"",rPwd:"",rtPwd:""});var t=this.refs.loginWrap;e.target.className.indexOf("turnL")!==-1?t.className="login-wrap register-active":e.target.className.indexOf("turnR")!==-1&&(t.className="login-wrap login-active")}),l(r,"render",function(){return i.default.createElement("div",{className:"loginbar"},i.default.createElement("a",{onClick:this.handleShow,className:"login-btn",ref:"loginBtn",href:"javascript:;"},"Login / Register"),i.default.createElement("a",{onClick:this.handleShow,className:this.state.show?"close-btn active":"close-btn",href:"javascript:;"}),i.default.createElement("div",{ref:"loginWrap",className:this.state.show?"login-wrap login-active":"login-wrap close"},i.default.createElement("div",{className:"register-form"},i.default.createElement("form",null,i.default.createElement("h1",{className:"title"},"Register"),i.default.createElement("div",null,i.default.createElement("input",{onChange:this.handleChange,maxLength:"9",value:this.state.rName,type:"text",name:"rUsername",placeholder:"Username"})),i.default.createElement("div",null,i.default.createElement("input",{onChange:this.handleChange,maxLength:"9",value:this.state.rPwd,type:"password",name:"rPwd",placeholder:"Password"})),i.default.createElement("div",null,i.default.createElement("input",{onChange:this.handleChange,maxLength:"9",value:this.state.rtPwd,type:"password",name:"rtPwd",placeholder:"Again"})),i.default.createElement("a",{className:"submit",href:""},"Rigister")),i.default.createElement("a",{onClick:this.handleTurn,className:"turnR turn",href:"javascript:;"})),i.default.createElement("div",{className:"login-form"},i.default.createElement("a",{onClick:this.handleTurn,className:"turnL turn",href:"javascript:;"}),i.default.createElement("form",null,i.default.createElement("h1",{className:"title"},"Login"),i.default.createElement("div",null,i.default.createElement("input",{onChange:this.handleChange,maxLength:"9",value:this.state.name,type:"text",name:"username",placeholder:"Username"})),i.default.createElement("div",null,i.default.createElement("input",{onChange:this.handleChange,maxLength:"9",value:this.state.pwd,type:"password",name:"pwd",placeholder:"Password"})),i.default.createElement("a",{className:"submit",href:""},"Sign In")))))}),r)),v=i.default.createClass({displayName:"HeadNav",componentDidMount:function(){var e=this.refs.headNav;this.props.handleAnimation(e)},render:function(){var e=this.props.data,t=e.map(function(e){return i.default.createElement("li",{key:e.name},i.default.createElement("a",{href:e.url},e.content))});return i.default.createElement("div",{ref:"headNav",className:"head-nav"},i.default.createElement("ul",{className:"head-list"},t))}}),E=i.default.createClass({displayName:"Header",getInitialState:function(){return{headData:[{name:"Blog",content:"Blog",url:""},{name:"About",content:"About",url:""},{name:"Contact",content:"Contact",url:""}]}},render:function(){return i.default.createElement("div",{className:"top"},i.default.createElement("div",{className:"header"},i.default.createElement(g,{handleAnimation:this.props.handleAnimation}),i.default.createElement(v,{handleAnimation:this.props.handleAnimation,data:this.state.headData})),i.default.createElement(p,{handleResize:this.props.handleResize,handleAnimation:this.props.handleAnimation,data:this.state.headData}))}}),w=i.default.createClass({displayName:"ContentList",componentDidMount:function(){},hanldeMouseOver:function(e){var t=e.target;t.style.transition=".5s",t.style.transform="scale(1.15)"},handleMouseMove:function(e){var t=e.target,a=t.offsetLeft,n=t.offsetTop,l=t.offsetWidth,r=(t.offsetHeight,t.parentNode.offsetLeft),s=t.parentNode.offsetTop,i=e.clientX-(a+r+l/2),o=e.pageY-(m+n+s+l/2);t.style.transform="scale(1.15) rotateY("+.05*i+"deg) translateZ(50px) rotateX("+.1*-o+"deg) translateY("+.05*o+"px) ",t.style.transition=".05s"},handleMouseOut:function(e){e.target.style.transition=".5s",e.target.style.transform="none"},render:function(){var e=this,t=this.props.data,a=t.map(function(t){return i.default.createElement("li",{key:t.name},i.default.createElement("a",{ref:"a",onMouseOver:e.hanldeMouseOver,onMouseOut:e.handleMouseOut,onMouseMove:e.handleMouseMove,href:t.url},t.name))});return i.default.createElement("div",{className:"content-list"},i.default.createElement("ul",null,a))}}),N=i.default.createClass({displayName:"CategoryBar",render:function(){return i.default.createElement("div",{className:"category-bar"},i.default.createElement("h1",{className:"category-title"},"Category"),i.default.createElement("ul",null,i.default.createElement("li",null,i.default.createElement("a",{href:""},"JavaScript")),i.default.createElement("li",null,i.default.createElement("a",{href:""},"Prochip"))))}}),y=i.default.createClass({displayName:"Content",componentDidMount:function(){var e=this.refs.content;this.props.handleAnimation(e)},getInitialState:function(){return{contentData:[{category:"JavaScript",name:"React入门教程",url:""},{category:"JavaScript",name:"Redux入门教程",url:""},{category:"JavaScript",name:"NodeJs入门教程",url:""},{category:"JavaScript",name:"ECMAScript 6入门教程",url:""},{category:"Prochip",name:"函数式编程入门教程",url:""}]}},render:function(){return i.default.createElement("div",{ref:"content",className:"content"},i.default.createElement(w,{data:this.state.contentData}),i.default.createElement(N,null))}}),b=i.default.createClass({displayName:"Footer",componentDidMount:function(){var e=this.refs.footer;this.props.handleAnimation(e)},render:function(){return i.default.createElement("div",{ref:"footer",className:"footer"},i.default.createElement("div",{className:"contact"},"QQ:107483419",i.default.createElement("br",null),"微信:1074863419"))}}),C=i.default.createClass({displayName:"Wrap",componentDidMount:function(){var e=this.refs.wrap;this.handleAnimation(e)},handleAnimation:function(e){function t(){var t=h.scrollTop;switch(e.className){case"wrap":t<=30&&(t=30),e.style.background="rgba("+t+","+t+","+t+",1)";break;case"content":e.style.background="rgba("+t+","+t+","+t+",1)";break;case"login-btn":e.style.color="rgba("+(255-t)+","+(255-t)+","+(255-t)+",1)";break;case"Hi":e.style.color="rgba("+(255-t)+","+(255-t)+","+(255-t)+",1)";break;case"head-nav":t>.25*a.refs.wrap.scrollHeight?e.style.opacity=1:e.style.opacity=0;break;case"footer":break;default:console.log("没有此元素的匹配项")}}var a=this;window.addEventListener("scroll",t,!1)},handleResize:function(e){window.addEventListener("resize",function(t){switch(m=d.clientHeight,u=d.clientWidth,f=u/15,d.style.fontSize=f+"px",e.className){case"main":e.style.height=m/f+"rem";break;default:console.log("没有此元素的匹配项")}},!1)},render:function(){return i.default.createElement("div",{ref:"wrap",className:"wrap"},i.default.createElement(E,{handleResize:this.handleResize,handleAnimation:this.handleAnimation}),i.default.createElement(y,{handleAnimation:this.handleAnimation}),i.default.createElement(b,{handleAnimation:this.handleAnimation}))}});c.default.render(i.default.createElement(C,null),document.querySelector(".container"))},81:function(e,t){},82:function(e,t){}},[180]);
+webpackJsonp([0],{
+
+/***/ 180:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _React$createClass;
+
+var _react = __webpack_require__(32);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(31);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+__webpack_require__(82);
+
+__webpack_require__(81);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var $html = document.documentElement;
+var htmlW = $html.clientWidth;
+var htmlH = $html.clientHeight;
+var rem = htmlW / 15;
+$html.style.fontSize = rem + 'px';
+var $body = document.body;
+
+var Main = _react2.default.createClass({
+    displayName: 'Main',
+
+    componentDidMount: function componentDidMount() {
+
+        var $Hi = this.refs.Hi;
+        var $main = this.refs.main;
+        $main.style.height = htmlH / rem + 'rem';
+        this.props.handleAnimation($Hi);
+        this.props.handleResize($main);
+    },
+    render: function render() {
+        var data = this.props.data;
+        var $list = data.map(function (data) {
+            return _react2.default.createElement(
+                'a',
+                { key: data.name, href: data.url },
+                data.content
+            );
+        });
+        return _react2.default.createElement(
+            'div',
+            { ref: 'main', className: 'main' },
+            _react2.default.createElement(
+                'h1',
+                { className: 'Hi', ref: 'Hi' },
+                'Hi.'
+            ),
+            $list
+        );
+    }
+});
+var LoginBar = _react2.default.createClass((_React$createClass = {
+    displayName: 'LoginBar',
+
+    getInitialState: function getInitialState() {
+        return {
+            show: false,
+            name: '',
+            pwd: '',
+            rName: '',
+            rPwd: '',
+            rtPwd: ''
+        };
+    },
+    componentDidMount: function componentDidMount(ev) {
+        var $loginBtn = this.refs.loginBtn;
+        this.props.handleAnimation($loginBtn);
+    },
+    handleChange: function handleChange(ev) {},
+    handleShow: function handleShow(ev) {
+        this.setState({
+            show: !this.state.show,
+            name: '',
+            pwd: '',
+            rName: '',
+            rPwd: '',
+            rtPwd: ''
+        });
+    }
+}, _defineProperty(_React$createClass, 'handleChange', function handleChange(ev) {
+    switch (ev.target.name) {
+        case "username":
+            this.setState({
+                name: ev.target.value
+            });
+            break;
+        case "pwd":
+            this.setState({
+                pwd: ev.target.value
+            });
+            break;
+        case "rUsername":
+            this.setState({
+                rName: ev.target.value
+            });
+            break;
+        case "rPwd":
+            this.setState({
+                rPwd: ev.target.value
+            });
+            break;
+        case "rtPwd":
+            this.setState({
+                rtPwd: ev.target.value
+            });
+            break;
+        default:
+            console.log('没有此元素的匹配项');
+    }
+}), _defineProperty(_React$createClass, 'handleTurn', function handleTurn(ev) {
+    this.setState({
+        name: '',
+        pwd: '',
+        rName: '',
+        rPwd: '',
+        rtPwd: ''
+    });
+    var $loginWrap = this.refs.loginWrap;
+    if (ev.target.className.indexOf('turnL') !== -1) {
+        $loginWrap.className = 'login-wrap register-active';
+    } else if (ev.target.className.indexOf('turnR') !== -1) {
+        $loginWrap.className = 'login-wrap login-active';
+    }
+}), _defineProperty(_React$createClass, 'render', function render() {
+    return _react2.default.createElement(
+        'div',
+        { className: 'loginbar' },
+        _react2.default.createElement(
+            'a',
+            { onClick: this.handleShow, className: 'login-btn', ref: 'loginBtn', href: 'javascript:;' },
+            'Login / Register'
+        ),
+        _react2.default.createElement(
+            'a',
+            { className: 'user-btn', href: '' },
+            'Hello,Macro'
+        ),
+        _react2.default.createElement('a', { onClick: this.handleShow, className: !this.state.show ? "close-btn" : "close-btn active", href: 'javascript:;' }),
+        _react2.default.createElement(
+            'div',
+            { ref: 'loginWrap', className: this.state.show ? "login-wrap login-active" : "login-wrap close" },
+            _react2.default.createElement(
+                'div',
+                { className: 'register-form' },
+                _react2.default.createElement(
+                    'form',
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        { className: 'title' },
+                        'Register'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement('input', { onChange: this.handleChange, maxLength: '9', value: this.state.rName, type: 'text', name: 'rUsername', placeholder: 'Username' })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement('input', { onChange: this.handleChange, maxLength: '9', value: this.state.rPwd, type: 'password', name: 'rPwd', placeholder: 'Password' })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement('input', { onChange: this.handleChange, maxLength: '9', value: this.state.rtPwd, type: 'password', name: 'rtPwd', placeholder: 'Again' })
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { className: 'submit', href: '' },
+                        'Rigister'
+                    )
+                ),
+                _react2.default.createElement('a', { onClick: this.handleTurn, className: 'turnR turn', href: 'javascript:;' })
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'login-form' },
+                _react2.default.createElement('a', { onClick: this.handleTurn, className: 'turnL turn', href: 'javascript:;' }),
+                _react2.default.createElement(
+                    'form',
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        { className: 'title' },
+                        'Login'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement('input', { onChange: this.handleChange, maxLength: '9', value: this.state.name, type: 'text', name: 'username', placeholder: 'Username' })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement('input', { onChange: this.handleChange, maxLength: '9', value: this.state.pwd, type: 'password', name: 'pwd', placeholder: 'Password' })
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { className: 'submit', href: '' },
+                        'Sign In'
+                    )
+                )
+            )
+        )
+    );
+}), _React$createClass));
+var HeadNav = _react2.default.createClass({
+    displayName: 'HeadNav',
+
+    componentDidMount: function componentDidMount() {
+        var $headNav = this.refs.headNav;
+        this.props.handleAnimation($headNav);
+    },
+    render: function render() {
+        var data = this.props.data;
+        var $haedList = data.map(function (data) {
+            return _react2.default.createElement(
+                'li',
+                { key: data.name },
+                _react2.default.createElement(
+                    'a',
+                    { href: data.url },
+                    data.content
+                )
+            );
+        });
+        return _react2.default.createElement(
+            'div',
+            { ref: 'headNav', className: 'head-nav' },
+            _react2.default.createElement(
+                'ul',
+                { className: 'head-list' },
+                $haedList
+            )
+        );
+    }
+});
+var Header = _react2.default.createClass({
+    displayName: 'Header',
+
+    getInitialState: function getInitialState() {
+        return {
+            "headData": [{
+                "name": "Blog",
+                "content": "Blog",
+                "url": ""
+            }, {
+                "name": "About",
+                "content": "About",
+                "url": ""
+            }, {
+                "name": "Contact",
+                "content": "Contact",
+                "url": ""
+            }]
+        };
+    },
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            { className: 'top' },
+            _react2.default.createElement(
+                'div',
+                { className: 'header' },
+                _react2.default.createElement(LoginBar, { handleAnimation: this.props.handleAnimation }),
+                _react2.default.createElement(HeadNav, { handleAnimation: this.props.handleAnimation, data: this.state.headData })
+            ),
+            _react2.default.createElement(Main, { handleResize: this.props.handleResize, handleAnimation: this.props.handleAnimation, data: this.state.headData })
+        );
+    }
+});
+
+var ContentList = _react2.default.createClass({
+    displayName: 'ContentList',
+
+    componentDidMount: function componentDidMount() {},
+    hanldeMouseOver: function hanldeMouseOver(ev) {
+        var $listCld = ev.target;
+        $listCld.style.transition = '.5s';
+        $listCld.style.transform = "scale(1.15)";
+    },
+    handleMouseMove: function handleMouseMove(ev) {
+        var count = this.props.count;
+        var $listCld = ev.target;
+        var cldOffsetLeft = $listCld.offsetLeft;
+        var cldOffsetTop = $listCld.offsetTop;
+        var cldOffsetWidth = $listCld.offsetWidth;
+        var cldOffsetHeight = $listCld.offsetHeight;
+        var offsetLeft = $listCld.parentNode.offsetLeft;
+        var offsetTop = $listCld.parentNode.offsetTop;
+        var L = ev.clientX - (cldOffsetLeft + offsetLeft + cldOffsetWidth / 2);
+        var T = ev.pageY - (htmlH + cldOffsetTop + offsetTop + cldOffsetWidth / 2);
+        $listCld.style.transform = "scale(1.10) rotateY(" + L * .05 + "deg) translateZ(50px) rotateX(" + -T * 0.1 + "deg) translateY(" + T * 0.05 + "px) ";
+        $listCld.style.transition = '0s';
+    },
+    handleMouseOut: function handleMouseOut(ev) {
+        ev.target.style.transition = '.5s';
+        ev.target.style.transform = 'none';
+    },
+    render: function render() {
+        var that = this;
+        var data = this.props.data;
+        var $contentList = data.map(function (data) {
+            return _react2.default.createElement(
+                'li',
+                { key: data.name },
+                _react2.default.createElement(
+                    'a',
+                    { ref: 'a', onMouseOver: that.hanldeMouseOver, onMouseMove: that.handleMouseMove, onMouseOut: that.handleMouseOut, href: data.url },
+                    data.name
+                )
+            );
+        });
+        return _react2.default.createElement(
+            'div',
+            { className: 'content-list' },
+            _react2.default.createElement(
+                'ul',
+                null,
+                $contentList
+            )
+        );
+    }
+});
+var CategoryBar = _react2.default.createClass({
+    displayName: 'CategoryBar',
+
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            { className: 'category-bar' },
+            _react2.default.createElement(
+                'h1',
+                { className: 'category-title' },
+                'Category'
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '' },
+                        'JavaScript'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                        'a',
+                        { href: '' },
+                        'Prochip'
+                    )
+                )
+            )
+        );
+    }
+});
+var Content = _react2.default.createClass({
+    displayName: 'Content',
+
+    componentDidMount: function componentDidMount() {
+        var $content = this.refs.content;
+        this.props.handleAnimation($content);
+    },
+    getInitialState: function getInitialState() {
+        return {
+            contentData: [{
+                "category": "JavaScript",
+                "name": "React入门教程",
+                "url": ""
+            }, {
+                "category": "JavaScript",
+                "name": "Redux入门教程",
+                "url": ""
+            }, {
+                "category": "JavaScript",
+                "name": "NodeJs入门教程",
+                "url": ""
+            }, {
+                "category": "JavaScript",
+                "name": "ECMAScript 6入门教程",
+                "url": ""
+            }, {
+                "category": "Prochip",
+                "name": "函数式编程入门教程",
+                "url": ""
+            }]
+        };
+    },
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            { ref: 'content', className: 'content' },
+            _react2.default.createElement(ContentList, { data: this.state.contentData }),
+            _react2.default.createElement(CategoryBar, null)
+        );
+    }
+});
+
+var Footer = _react2.default.createClass({
+    displayName: 'Footer',
+
+    componentDidMount: function componentDidMount() {
+        var $footer = this.refs.footer;
+        this.props.handleAnimation($footer);
+    },
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            { ref: 'footer', className: 'footer' },
+            _react2.default.createElement(
+                'div',
+                { className: 'contact' },
+                'QQ:107483419',
+                _react2.default.createElement('br', null),
+                '\u5FAE\u4FE1:1074863419'
+            )
+        );
+    }
+});
+var Wrap = _react2.default.createClass({
+    displayName: 'Wrap',
+
+    componentDidMount: function componentDidMount() {
+        var $wrap = this.refs.wrap;
+        this.handleAnimation($wrap);
+    },
+    handleAnimation: function handleAnimation(obj) {
+        var that = this;
+        window.addEventListener('scroll', animation, false);
+        function animation(ev) {
+            var scrollT = 0;
+            if ($html.scrollTop == 0) {
+                scrollT = $body.scrollTop;
+            } else if ($body.scrollTop == 0) {
+                scrollT = $html.scrollTop;
+            }
+
+            switch (obj.className) {
+                case "wrap":
+                    if (scrollT <= 30) {
+                        scrollT = 30;
+                    } else if (scrollT >= 255) {
+                        scrollT = 255;
+                    }
+                    obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
+                    break;
+                case "content":
+                    if (scrollT <= 30) {
+                        scrollT = 30;
+                    } else if (scrollT >= 255) {
+                        scrollT = 255;
+                    }
+                    obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
+                    break;
+                case "login-btn":
+                    obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
+                    break;
+                case "Hi":
+                    obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
+                    break;
+                case "head-nav":
+                    if (scrollT > that.refs.wrap.scrollHeight * .25) {
+                        obj.style.opacity = 1;
+                    } else {
+                        obj.style.opacity = 0;
+                    }
+                    break;
+                case "footer":
+
+                    break;
+                default:
+                    console.log("没有此元素的匹配项");
+            }
+        }
+    },
+    handleResize: function handleResize(obj) {
+        var that = this;
+        window.addEventListener('resize', function (ev) {
+            htmlH = $html.clientHeight;
+            htmlW = $html.clientWidth;
+            rem = htmlW / 15;
+            $html.style.fontSize = rem + 'px';
+            switch (obj.className) {
+                case "main":
+                    obj.style.height = htmlH / rem + 'rem';
+                    break;
+                default:
+                    console.log('没有此元素的匹配项');
+            }
+        }, false);
+    },
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            { ref: 'wrap', className: 'wrap' },
+            _react2.default.createElement(Header, { handleResize: this.handleResize, handleAnimation: this.handleAnimation }),
+            _react2.default.createElement(Content, { handleAnimation: this.handleAnimation }),
+            _react2.default.createElement(Footer, { handleAnimation: this.handleAnimation })
+        );
+    }
+});
+_reactDom2.default.render(_react2.default.createElement(Wrap, null), document.querySelector('.container'));
+
+/***/ }),
+
+/***/ 81:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ })
+
+},[180]);
+//# sourceMappingURL=home.js.map
