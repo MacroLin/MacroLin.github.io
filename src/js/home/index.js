@@ -269,10 +269,7 @@ var CategoryBar = React.createClass({
     }
 });
 var Content = React.createClass({
-    componentDidMount: function() {
-        var $content = this.refs.content;
-        this.props.handleAnimation($content);
-    },
+
     getInitialState: function() {
         return {
             contentData: [{
@@ -324,25 +321,25 @@ var Footer = React.createClass({
 });
 var Wrap = React.createClass({
     componentDidMount: function() {
-        var $wrap = this.refs.wrap;
-        this.handleAnimation($wrap);
+        var $topWrap = this.refs.topWrap;
+        this.handleAnimation($topWrap);
     },
     handleAnimation: function(obj) {
         var that = this;
         window.addEventListener('scroll', animation, false);
         function animation(ev) {
             var scrollT = 0;
-            if($html.scrollTop == 0){
+            if ($html.scrollTop == 0) {
                 scrollT = $body.scrollTop;
-            }else if($body.scrollTop == 0){
+            } else if ($body.scrollTop == 0) {
                 scrollT = $html.scrollTop;
             }
-            
-            
 
-           
+
+
+
             switch (obj.className) {
-            case "wrap":
+            case "top-wrap":
                 if (scrollT <= 30) {
                     scrollT = 30
                 } else if (scrollT >= 255) {
@@ -350,14 +347,7 @@ var Wrap = React.createClass({
                 }
                 obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
                 break;
-            case "content":
-                if (scrollT <= 30) {
-                    scrollT = 30
-                } else if (scrollT >= 255) {
-                    scrollT = 255
-                }
-                obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
-                break;
+            
             case "login-btn":
                 obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
                 break;
@@ -371,9 +361,7 @@ var Wrap = React.createClass({
                     obj.style.opacity = 0;
                 }
                 break;
-            case "footer":
 
-                break;
             default:
                 console.log("没有此元素的匹配项")
             }
@@ -401,8 +389,11 @@ var Wrap = React.createClass({
     render: function() {
         return (
             <div ref="wrap"  className="wrap">
-                <Header handleResize={this.handleResize} handleAnimation = {this.handleAnimation}/>
-                <Content  handleAnimation = {this.handleAnimation} />
+                <div ref="topWrap" className = "top-wrap">
+                    <Header handleResize={this.handleResize} handleAnimation = {this.handleAnimation}/>
+                    <Content   />
+                </div>
+                
                 <Footer handleAnimation = {this.handleAnimation} />
             </div>
         )
