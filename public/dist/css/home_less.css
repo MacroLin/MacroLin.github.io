@@ -69,7 +69,7 @@ img {
 }
 @font-face {
   font-family: 'Grotesk-Regular';
-  src: url(/public/distimage&fonts/00d9358c/asset/GroteskRegular_gdi.woff) format('woff');
+  src: url(/public/dist/images/GroteskRegular_gdi.woff) format('woff');
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -77,7 +77,7 @@ img {
 }
 @font-face {
   font-family: 'Grotesk-Bold';
-  src: url(/public/distimage&fonts/5c9374d5/asset/GroteskBold_gdi.woff) format('woff');
+  src: url(/public/dist/images/GroteskBold_gdi.woff) format('woff');
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -100,7 +100,9 @@ img {
 .top {
   width: 100%;
   height: 100%;
+  background: inherit;
   position: relative;
+  z-index: 999;
 }
 .top .main {
   box-sizing: border-box;
@@ -183,16 +185,170 @@ img {
   left: 0;
   top: 0;
 }
-.top .header .loginbar a {
+.top .header .loginbar .login-btn {
   position: absolute;
   font-family: 'Grotesk-Regular';
   top: 0.49414348rem;
   left: 0.53806735rem;
   color: #ffffff;
   font-size: 0.17569546rem;
+  z-index: 999;
 }
-.top .header .loginbar a:hover {
+.top .header .loginbar .login-btn:hover {
   border-bottom: 1px solid #ccc;
+}
+.top .header .loginbar .close-btn {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform .5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+  -webkit-transform: translateX(-1.09809663rem);
+  transform: translateX(-1.09809663rem);
+  background: url(/public/dist/images/close.png) no-repeat;
+  background-size: cover;
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  top: 0.49414348rem;
+  right: 0.53806735rem;
+  width: 0.49414348rem;
+  height: 0.49414348rem;
+}
+.top .header .loginbar .close-btn:hover {
+  background: url(/public/dist/images/close_hover.png) no-repeat;
+  background-size: cover;
+}
+.top .header .loginbar .active {
+  opacity: 1;
+  z-index: 99999;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.top .header .loginbar .login-wrap {
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  display: table;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.8);
+}
+.top .header .loginbar .login-wrap .login-form,
+.top .header .loginbar .login-wrap .register-form {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  display: table-cell;
+  positoin: relative;
+}
+.top .header .loginbar .login-wrap .login-form form,
+.top .header .loginbar .login-wrap .register-form form {
+  width: 30%;
+  margin: 5% auto;
+  padding: 0.43923865rem;
+}
+.top .header .loginbar .login-wrap .login-form form .title,
+.top .header .loginbar .login-wrap .register-form form .title {
+  font-size: 0.54904832rem;
+  color: white;
+  margin-bottom: 1.09809663rem;
+}
+.top .header .loginbar .login-wrap .login-form form div,
+.top .header .loginbar .login-wrap .register-form form div {
+  margin: 0.10980966rem auto;
+  position: relative;
+  border: 1px solid silver;
+  width: 70%;
+}
+.top .header .loginbar .login-wrap .login-form form div input,
+.top .header .loginbar .login-wrap .register-form form div input {
+  display: block;
+  color: white;
+  border: 0;
+  outline: 0;
+  padding: 0.10980966rem 0.21961933rem;
+  position: relative;
+  width: 100%;
+  font-size: 0.19765739rem;
+  box-sizing: border-box;
+  font-family: 'Grotesk-Regular';
+}
+.top .header .loginbar .login-wrap .login-form form .submit,
+.top .header .loginbar .login-wrap .register-form form .submit {
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  position: relative;
+  font-size: 0.26354319rem;
+  color: silver;
+  padding: 0.10980966rem;
+}
+.top .header .loginbar .login-wrap .login-form form .submit:hover,
+.top .header .loginbar .login-wrap .register-form form .submit:hover {
+  color: white;
+}
+.top .header .loginbar .login-wrap .turn {
+  position: absolute;
+  width: 0.54904832rem;
+  height: 1.09809663rem;
+  top: 35%;
+}
+.top .header .loginbar .login-wrap .turn:before {
+  content: '';
+  position: absolute;
+  width: 0.54904832rem;
+  height: 0.05490483rem;
+  -webkit-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+  background: silver;
+  left: 0;
+  top: 27%;
+}
+.top .header .loginbar .login-wrap .turn:after {
+  content: '';
+  position: absolute;
+  width: 0.54904832rem;
+  height: 0.05490483rem;
+  -webkit-transform: rotate(60deg);
+  transform: rotate(60deg);
+  background: silver;
+  left: 0;
+  bottom: 27%;
+}
+.top .header .loginbar .login-wrap .turnL {
+  left: 5%;
+}
+.top .header .loginbar .login-wrap .turnR {
+  right: 5%;
+}
+.top .header .loginbar .login-wrap .turnR:before {
+  -webkit-transform: rotate(-120deg);
+  transform: rotate(-120deg);
+}
+.top .header .loginbar .login-wrap .turnR:after {
+  -webkit-transform: rotate(120deg);
+  transform: rotate(120deg);
+}
+.top .header .loginbar .login-active {
+  opacity: 1;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.top .header .loginbar .close {
+  opacity: 0;
+  z-index: 1;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.top .header .loginbar .regiter-active {
+  opacity: 1;
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
 }
 .top .header .head-nav {
   -webkit-transition: all 1s;
@@ -232,6 +388,10 @@ img {
 .content {
   display: table;
   width: 100%;
+  position: relative;
+  z-index: 888;
+  margin-bottom: 3.2942899rem;
+  background: #ffffff;
 }
 .content .content-list {
   vertical-align: top;
@@ -293,4 +453,18 @@ img {
   font-size: 0.27452416rem;
   color: #333;
   text-decoration: underline;
+}
+.footer {
+  position: fixed;
+  z-index: 666;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3.2942899rem;
+  background: #1e1e1e;
+}
+.footer .contact {
+  padding-top: 0.43923865rem;
+  text-align: center;
+  font-size: 0.32942899rem;
 }

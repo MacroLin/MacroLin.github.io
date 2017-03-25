@@ -12,7 +12,7 @@ var config = {
     output: {
         path: path.join(__dirname, '/public/dist/'),
         filename: '[name].js',
-        publicPath: '/public/dist'
+        publicPath: '/public/dist/'
     },
     module: {
         rules: [{
@@ -32,12 +32,13 @@ var config = {
             use: extractLESS.extract(['css-loader', 'less-loader','autoprefixer-loader'])
         }, {
             test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-            use: [{
-                loader: 'file-loader',
-                options: {
-                    name: 'image&fonts/[hash:8]/asset/[name].[ext]'
-                }
-            }]
+            // use: [{
+            //     loader: 'file-loader',
+            //     options: {
+            //         name: 'image&fonts/[hash:8]/asset/[name].[ext]'
+            //     }
+            // }]
+            use: "file-loader?name=[name].[ext]&publicPath=/public/dist/images/&outputPath=images/"
         }]
 
     },
