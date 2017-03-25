@@ -29,9 +29,9 @@ var Main = React.createClass({
         });
         return (
             <div ref="main" className="main">
-			<h1 className="Hi" ref='Hi'>Hi.</h1>
-				{$list}
-			</div>
+            <h1 className="Hi" ref='Hi'>Hi.</h1>
+                {$list}
+            </div>
         )
 
     }
@@ -42,9 +42,9 @@ var LoginBar = React.createClass({
             show: false,
             name: '',
             pwd: '',
-            rName:'',
-            rPwd:'',
-            rtPwd:''
+            rName: '',
+            rPwd: '',
+            rtPwd: ''
         }
     },
     componentDidMount: function(ev) {
@@ -57,9 +57,9 @@ var LoginBar = React.createClass({
             show: !this.state.show,
             name: '',
             pwd: '',
-            rName:'',
-            rPwd:'',
-            rtPwd:''
+            rName: '',
+            rPwd: '',
+            rtPwd: ''
         });
 
     },
@@ -70,38 +70,38 @@ var LoginBar = React.createClass({
                 name: ev.target.value
             });
             break;
-            case "pwd":
+        case "pwd":
             this.setState({
                 pwd: ev.target.value
             });
             break;
-            case "rUsername":
-            	this.setState({
+        case "rUsername":
+            this.setState({
                 rName: ev.target.value
             });
             break;
-            case "rPwd":
-            	this.setState({
+        case "rPwd":
+            this.setState({
                 rPwd: ev.target.value
             });
             break;
-            case "rtPwd":
-            	this.setState({
+        case "rtPwd":
+            this.setState({
                 rtPwd: ev.target.value
             });
             break;
-            default:
+        default:
             console.log('没有此元素的匹配项')
         }
 
     },
     handleTurn: function(ev) {
-    	 this.setState({
+        this.setState({
             name: '',
             pwd: '',
-            rName:'',
-            rPwd:'',
-            rtPwd:''
+            rName: '',
+            rPwd: '',
+            rtPwd: ''
         });
         var $loginWrap = this.refs.loginWrap;
         if (ev.target.className.indexOf('turnL') !== -1) {
@@ -109,41 +109,43 @@ var LoginBar = React.createClass({
         } else if (ev.target.className.indexOf('turnR') !== -1) {
             $loginWrap.className = 'login-wrap login-active';
         }
-       
+
 
     },
     render: function() {
         return (
             <div className="loginbar">
-				<a onClick={this.handleShow} className="login-btn"  ref="loginBtn" href="javascript:;">Login / Register</a>
-				<a onClick={this.handleShow} className={!this.state.show ? "close-btn" : "close-btn active"} href="javascript:;"></a>
-				<div  ref="loginWrap" className = {this.state.show ? "login-wrap login-active" : "login-wrap close"}>
-				
-					<div  className="register-form">
-						
-						<form>
-						<h1 className="title">Register</h1>
-							<div ><input onChange={this.handleChange} maxLength = "9" value={this.state.rName}  type="text" name="rUsername" placeholder="Username" /></div>
-							<div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rPwd} type="password" name="rPwd" placeholder="Password" /></div>
-							<div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rtPwd} type="password" name="rtPwd" placeholder="Again" /></div>
-							<a  className="submit" href="">Rigister</a>
-						</form>
-						<a onClick={this.handleTurn} className="turnR turn" href="javascript:;"></a>
-					</div>
-					<div className ="login-form">
-						<a onClick={this.handleTurn} className="turnL turn" href="javascript:;"></a>
-						
-						<form>
-						<h1  className="title">Login</h1>
-							<div ><input onChange={this.handleChange} maxLength = "9" value={this.state.name} type="text" name="username" placeholder="Username" /></div>
-							<div ><input onChange={this.handleChange} maxLength = "9" value={this.state.pwd} type="password" name="pwd" placeholder="Password" /></div>
-							<a  className="submit" href="">Sign In</a>
-						</form>
+                <a onClick={this.handleShow} className="login-btn"  ref="loginBtn" href="javascript:;">Login / Register</a>
+                <a className="user-btn" href="">Hello,Macro</a>
+                <a onClick={this.handleShow} className={!this.state.show ? "close-btn" : "close-btn active"} href="javascript:;"></a>
+                <div  ref="loginWrap" className = {this.state.show ? "login-wrap login-active" : "login-wrap close"}>
+                
+                    <div  className="register-form">
+                        
+                        <form>
+                        <h1 className="title">Register</h1>
+                            <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.rName}  type="text" name="rUsername" placeholder="Username" /></div>
+                            <div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rPwd} type="password" name="rPwd" placeholder="Password" /></div>
+                            <div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rtPwd} type="password" name="rtPwd" placeholder="Again" /></div>
+                            <a  className="submit" href="">Rigister</a>
+                        </form>
+                        <a onClick={this.handleTurn} className="turnR turn" href="javascript:;"></a>
+                    </div>
+                    <div className ="login-form">
+                        <a onClick={this.handleTurn} className="turnL turn" href="javascript:;"></a>
+                        
+                        <form>
+                        <h1  className="title">Login</h1>
+                            <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.name} type="text" name="username" placeholder="Username" /></div>
+                            <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.pwd} type="password" name="pwd" placeholder="Password" /></div>
+                            <a  className="submit" href="">Sign In</a>
+                        </form>
 
-					</div>
-					
-				</div>
-			</div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
         )
     }
 });
@@ -157,16 +159,16 @@ var HeadNav = React.createClass({
         var $haedList = data.map(function(data) {
             return (
                 <li key={data.name}>
-						<a href={data.url}>{data.content}</a>
-				</li>
+                        <a href={data.url}>{data.content}</a>
+                </li>
             )
         });
         return (
             <div ref="headNav" className="head-nav">
-				<ul className="head-list">
-					{$haedList}
-				</ul>
-			</div>
+                <ul className="head-list">
+                    {$haedList}
+                </ul>
+            </div>
         )
     }
 });
@@ -191,12 +193,12 @@ var Header = React.createClass({
     render: function() {
         return (
             <div className="top">
-				<div className="header">
-				<LoginBar handleAnimation = {this.props.handleAnimation} />
-				<HeadNav handleAnimation = {this.props.handleAnimation} data = {this.state.headData} />
-			</div>
-			<Main handleResize={this.props.handleResize} handleAnimation = {this.props.handleAnimation} data = {this.state.headData} />
-        	</div>
+                <div className="header">
+                <LoginBar handleAnimation = {this.props.handleAnimation} />
+                <HeadNav handleAnimation = {this.props.handleAnimation} data = {this.state.headData} />
+            </div>
+            <Main handleResize={this.props.handleResize} handleAnimation = {this.props.handleAnimation} data = {this.state.headData} />
+            </div>
 
 
         )
@@ -211,6 +213,7 @@ var ContentList = React.createClass({
         $listCld.style.transform = "scale(1.15)";
     },
     handleMouseMove: function(ev) {
+        var count = this.props.count;
         var $listCld = ev.target;
         var cldOffsetLeft = $listCld.offsetLeft;
         var cldOffsetTop = $listCld.offsetTop;
@@ -220,8 +223,9 @@ var ContentList = React.createClass({
         var offsetTop = $listCld.parentNode.offsetTop;
         var L = ev.clientX - (cldOffsetLeft + offsetLeft + cldOffsetWidth / 2);
         var T = ev.pageY - (htmlH + cldOffsetTop + offsetTop + cldOffsetWidth / 2);
-        $listCld.style.transform = "scale(1.15) rotateY(" + L * .05 + "deg) translateZ(50px) rotateX(" + -T * 0.1 + "deg) translateY(" + T * 0.05 + "px) ";
-        $listCld.style.transition = '.05s';
+        $listCld.style.transform = "scale(1.10) rotateY(" + L * .05 + "deg) translateZ(50px) rotateX(" + -T * 0.1 + "deg) translateY(" + T * 0.05 + "px) ";
+        $listCld.style.transition = '0s';
+
 
     },
     handleMouseOut: function(ev) {
@@ -234,15 +238,15 @@ var ContentList = React.createClass({
         var data = this.props.data;
         var $contentList = data.map(function(data) {
             return (
-                <li key = {data.name}><a ref="a" onMouseOver = {that.hanldeMouseOver} onMouseOut = {that.handleMouseOut} onMouseMove = {that.handleMouseMove}   href={data.url}>{data.name}</a></li>
+                <li key = {data.name}><a  ref="a" onMouseOver = {that.hanldeMouseOver} onMouseMove={that.handleMouseMove} onMouseOut = {that.handleMouseOut}   href={data.url}>{data.name}</a></li>
             )
         });
         return (
             <div className="content-list">
-				<ul>
-					{$contentList}
-				</ul>
-			</div>
+                <ul>
+                    {$contentList}
+                </ul>
+            </div>
         )
     }
 });
@@ -250,17 +254,17 @@ var CategoryBar = React.createClass({
     render: function() {
         return (
             <div className = "category-bar">
-            	<h1 className="category-title">Category</h1>
-				<ul>
-					<li>
-						<a href="">JavaScript</a>
-					</li>
-					<li>
-						<a href="">Prochip</a>
-					</li>
+                <h1 className="category-title">Category</h1>
+                <ul>
+                    <li>
+                        <a href="">JavaScript</a>
+                    </li>
+                    <li>
+                        <a href="">Prochip</a>
+                    </li>
 
-				</ul>
-			</div>
+                </ul>
+            </div>
         )
     }
 });
@@ -297,9 +301,9 @@ var Content = React.createClass({
     render: function() {
         return (
             <div ref="content" className="content">
-				<ContentList  data = {this.state.contentData} />
-				<CategoryBar />
-			</div>
+                <ContentList  data = {this.state.contentData} />
+                <CategoryBar />
+            </div>
         )
     }
 });
@@ -312,9 +316,9 @@ var Footer = React.createClass({
     render: function() {
         return (
             <div ref="footer" className='footer'>
-				<div className="contact">QQ:107483419<br/>
-				微信:1074863419</div>
-			</div>
+                <div className="contact">QQ:107483419<br/>
+                微信:1074863419</div>
+            </div>
         )
     }
 });
@@ -326,18 +330,33 @@ var Wrap = React.createClass({
     handleAnimation: function(obj) {
         var that = this;
         window.addEventListener('scroll', animation, false);
-        function animation() {
+        function animation(ev) {
+            var scrollT = 0;
+            if($html.scrollTop == 0){
+                scrollT = $body.scrollTop;
+            }else if($body.scrollTop == 0){
+                scrollT = $html.scrollTop;
+            }
+            
+            
 
-            var scrollT = $body.scrollTop;
+           
             switch (obj.className) {
             case "wrap":
                 if (scrollT <= 30) {
                     scrollT = 30
+                } else if (scrollT >= 255) {
+                    scrollT = 255
                 }
-                obj.style.background = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
+                obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
                 break;
             case "content":
-                obj.style.background = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
+                if (scrollT <= 30) {
+                    scrollT = 30
+                } else if (scrollT >= 255) {
+                    scrollT = 255
+                }
+                obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
                 break;
             case "login-btn":
                 obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
@@ -382,10 +401,10 @@ var Wrap = React.createClass({
     render: function() {
         return (
             <div ref="wrap"  className="wrap">
-				<Header handleResize={this.handleResize} handleAnimation = {this.handleAnimation}/>
-				<Content  handleAnimation = {this.handleAnimation} />
-				<Footer handleAnimation = {this.handleAnimation} />
-			</div>
+                <Header handleResize={this.handleResize} handleAnimation = {this.handleAnimation}/>
+                <Content  handleAnimation = {this.handleAnimation} />
+                <Footer handleAnimation = {this.handleAnimation} />
+            </div>
         )
     }
 });

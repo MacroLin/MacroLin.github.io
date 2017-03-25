@@ -5,15 +5,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCSS = new ExtractTextPlugin('./css/[name]_css.css');
 const extractLESS = new ExtractTextPlugin('./css/[name]_less.css');
 
+var publicPath = 'http://localhost:8080/public/dist';
 var config = {
     entry: {
         vendor: ['react', 'react-dom']
     },
     output: {
-        path: path.join(__dirname, '/public/dist/'),
+        path: path.resolve('./public/dist'),
         filename: '[name].js',
-        publicPath: '/public/dist/'
+        publicPath: publicPath
     },
+    devtool:'source-map',
     module: {
         rules: [{
             test: /\.js$/,
@@ -46,11 +48,13 @@ var config = {
         extractCSS,
         extractLESS,
         new webpack.optimize.CommonsChunkPlugin('vendor.bundle'),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: true
-            }
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: true
+        //     }
+        // }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
     ]
 }
 var files = glob.sync('./src/js/*/index.js');
