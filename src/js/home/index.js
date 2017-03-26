@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '../../css/reset.less';
 import '../../css/index.less';
+var querystring = require('querystring');
 var $html = document.documentElement;
 var htmlW = $html.clientWidth;
 var htmlH = $html.clientHeight;
@@ -42,53 +43,55 @@ var LoginBar = React.createClass({
             show: false,
             name: '',
             pwd: '',
-            rName: '',
-            rPwd: '',
-            rtPwd: ''
+            repwd: '',
+            message: '',
+            login: false,
+            accountName: 'World'
         }
     },
     componentDidMount: function(ev) {
         var $loginBtn = this.refs.loginBtn;
+        var $accountName = this.refs.accountName;
+        var $logOut = this.refs.logOut;
+        this.props.handleAnimation($accountName);
         this.props.handleAnimation($loginBtn);
+        this.props.handleAnimation($logOut);
     },
-    handleChange: function(ev) {},
     handleShow: function(ev) {
         this.setState({
             show: !this.state.show,
             name: '',
             pwd: '',
-            rName: '',
-            rPwd: '',
-            rtPwd: ''
+            repwd: '',
+            message: ''
         });
 
     },
     handleChange: function(ev) {
         switch (ev.target.name) {
         case "username":
-            this.setState({
-                name: ev.target.value
-            });
+            if (/^[a-zA-Z]*$/g.test(ev.target.value) && (ev.target.value.length <= 9)) {
+                this.setState({
+                    name: ev.target.value.replace(/\s/g, "")
+                });
+            }
+
             break;
         case "pwd":
-            this.setState({
-                pwd: ev.target.value
-            });
+            if (ev.target.value.length <= 16) {
+                this.setState({
+                    pwd: ev.target.value
+                });
+            }
+
             break;
-        case "rUsername":
-            this.setState({
-                rName: ev.target.value
-            });
-            break;
-        case "rPwd":
-            this.setState({
-                rPwd: ev.target.value
-            });
-            break;
-        case "rtPwd":
-            this.setState({
-                rtPwd: ev.target.value
-            });
+
+        case "repwd":
+            if (ev.target.value.length <= 16) {
+                this.setState({
+                    repwd: ev.target.value
+                });
+            }
             break;
         default:
             console.log('没有此元素的匹配项')
@@ -99,46 +102,139 @@ var LoginBar = React.createClass({
         this.setState({
             name: '',
             pwd: '',
-            rName: '',
-            rPwd: '',
-            rtPwd: ''
+            repwd: '',
+            message: ''
         });
         var $loginWrap = this.refs.loginWrap;
-        if (ev.target.className.indexOf('turnL') !== -1) {
+        if ((ev.target.className.indexOf('turnL') && ev.target.parentNode.className.indexOf('turnL')) !== -1) {
             $loginWrap.className = 'login-wrap register-active';
-        } else if (ev.target.className.indexOf('turnR') !== -1) {
+        } else if ((ev.target.className.indexOf('turnR') && ev.target.parentNode.className.indexOf('turnR')) !== -1) {
             $loginWrap.className = 'login-wrap login-active';
         }
 
 
     },
+    handleSubmit: function(ev) {
+        var that = this;
+        switch (ev.target.name) {
+        case "regisSubmit":
+            var reqData = {
+                username: this.state.name,
+                pwd: this.state.pwd,
+                repwd: this.state.repwd
+            }
+            reqData = JSON.stringify(reqData);
+            var httpReq = new XMLHttpRequest();
+            httpReq.open('POST', '/api/user/register', true);
+            httpReq.setRequestHeader('Content-Type', 'application/json');
+            httpReq.onreadystatechange = function() {
+                if (httpReq.readyState == 4) {
+                    if (httpReq.status == 200) {
+
+                        var resData = JSON.parse(httpReq.responseText);
+
+                        that.setState({
+                            message: resData.message
+                        });
+                        if (!resData.code) {
+                            setTimeout(function() {
+                                that.setState({
+                                    name: '',
+                                    pwd: '',
+                                    repwd: '',
+                                    message: ''
+                                });
+                                that.refs.loginWrap.className = 'login-wrap login-active';
+                            }, 1000);
+                        }
+                    } else {
+                        console.log(httpReq.statusText)
+                    }
+                }
+            };
+            httpReq.onerror = function(err) {
+                console.log(httpReq.statusText)
+            }
+
+            httpReq.send(reqData);
+            break;
+        case "logSubmit":
+            var reqData = {
+                username: this.state.name,
+                pwd: this.state.pwd,
+            }
+            reqData = JSON.stringify(reqData);
+            var httpReq = new XMLHttpRequest();
+            httpReq.open('POST', '/api/user/login', true);
+            httpReq.setRequestHeader('Content-Type', 'application/json');
+            httpReq.onreadystatechange = function() {
+
+                if (httpReq.readyState == 4) {
+                    if (httpReq.status == 200) {
+                        var resData = JSON.parse(httpReq.responseText);
+
+                        that.setState({
+                            message: resData.message
+                        });
+                        if (!resData.code) {
+                            setTimeout(function() {
+                                that.setState({
+                                    login: true,
+                                    accountName: resData.userInfo.username,
+                                    show:false
+                                });
+                                that.refs.loginWrap.style.display="none";
+                            }, 1000)
+                        }
+                    } else {
+                        console.log(httpReq.statusText)
+                    }
+                }
+            }
+            httpReq.onerror = function(err) {
+                console.log(httpReq.statusText)
+            }
+
+            httpReq.send(reqData);
+            break;
+        default:
+            console.log('没有此元素的匹配项')
+        }
+
+    },
+
     render: function() {
         return (
             <div className="loginbar">
-                <a onClick={this.handleShow} className="login-btn"  ref="loginBtn" href="javascript:;">Login / Register</a>
-                <a className="user-btn" href="">Hello,Macro</a>
+                <a onClick={this.handleShow} className={this.state.login ? "login-btn" : "login-btn active"}  ref="loginBtn" href="javascript:;">Login / Register</a>
+                <div className = {this.state.login ? "user-info active" : "user-info"}>
+                    <a ref="accountName" className="user-btn" href="">{this.state.accountName}</a>
+                    <a onClick={function(){this.refs.loginWrap.style.display="table";this.setState({show:false,login:false})}.bind(this)} ref="logOut" className ="logout-btn" href="javascript:;">Logout</a>
+                </div>
                 <a onClick={this.handleShow} className={!this.state.show ? "close-btn" : "close-btn active"} href="javascript:;"></a>
                 <div  ref="loginWrap" className = {this.state.show ? "login-wrap login-active" : "login-wrap close"}>
                 
                     <div  className="register-form">
                         
-                        <form>
+                        <form name="regisForm" >
                         <h1 className="title">Register</h1>
-                            <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.rName}  type="text" name="rUsername" placeholder="Username" /></div>
-                            <div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rPwd} type="password" name="rPwd" placeholder="Password" /></div>
-                            <div><input  onChange={this.handleChange} maxLength = "9" value={this.state.rtPwd} type="password" name="rtPwd" placeholder="Again" /></div>
-                            <a  className="submit" href="">Rigister</a>
+                            <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.name}  type="text" name="username" placeholder="Username" /></div>
+                            <div><input  onChange={this.handleChange} maxLength = "16" value={this.state.pwd} type="password" name="pwd" placeholder="Password" /></div>
+                            <div><input  onChange={this.handleChange} maxLength = "16" value={this.state.repwd} type="password" name="repwd" placeholder="Again" /></div>
+                            <div className="message">{this.state.message}</div>
+                            <a name="regisSubmit" onClick = {this.handleSubmit}  className="submit" href="javascript:;">Rigister</a>
                         </form>
-                        <a onClick={this.handleTurn} className="turnR turn" href="javascript:;"></a>
+                        <a onClick={this.handleTurn} className="turnR turn" href="javascript:;"><span onClick={this.handleTurn}>Login</span></a>
                     </div>
                     <div className ="login-form">
-                        <a onClick={this.handleTurn} className="turnL turn" href="javascript:;"></a>
+                        <a onClick={this.handleTurn} className="turnL turn" href="javascript:;"><span onClick={this.handleTurn} >Register</span></a>
                         
-                        <form>
+                        <form name="logForm" >
                         <h1  className="title">Login</h1>
                             <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.name} type="text" name="username" placeholder="Username" /></div>
-                            <div ><input onChange={this.handleChange} maxLength = "9" value={this.state.pwd} type="password" name="pwd" placeholder="Password" /></div>
-                            <a  className="submit" href="">Sign In</a>
+                            <div ><input onChange={this.handleChange} maxLength = "16" value={this.state.pwd} type="password" name="pwd" placeholder="Password" /></div>
+                            <div className="message">{this.state.message}</div>
+                            <a name="logSubmit" onClick = {this.handleSubmit} className="submit" href="javascript:;">Sign In</a>
                         </form>
 
                     </div>
@@ -308,7 +404,6 @@ var Content = React.createClass({
 var Footer = React.createClass({
     componentDidMount: function() {
         var $footer = this.refs.footer;
-        this.props.handleAnimation($footer);
     },
     render: function() {
         return (
@@ -347,10 +442,16 @@ var Wrap = React.createClass({
                 }
                 obj.style.backgroundColor = "rgba(" + scrollT + "," + scrollT + "," + scrollT + ",1)";
                 break;
-            
-            case "login-btn":
+
+            case "login-btn active":
                 obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
                 break;
+            case "user-btn":
+                obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
+            break;
+            case "logout-btn":
+                 obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
+            break;
             case "Hi":
                 obj.style.color = "rgba(" + (255 - scrollT) + "," + (255 - scrollT) + "," + (255 - scrollT) + ",1)";
                 break;
@@ -394,7 +495,7 @@ var Wrap = React.createClass({
                     <Content   />
                 </div>
                 
-                <Footer handleAnimation = {this.handleAnimation} />
+                <Footer />
             </div>
         )
     }
